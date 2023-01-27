@@ -18,7 +18,9 @@ function App() {
     setDate('');
   }
 
-  
+  function handleDelete(index: number) {
+    setTodos(todos.filter((todo, i) => i !== index));
+  }
 
   return (
     <div>
@@ -52,7 +54,7 @@ function App() {
                 <td>{todo.date}</td>
                 <td>{todo.description}</td>
                 <td>
-              
+              <button onClick={() => handleDelete(index)}>Delete</button>
                 </td>
               </tr>
             ))}
