@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Weather App</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    
+    <script type="text/babel">
+      function Weather() {
+        const [weatherData, setWeatherData] = React.useState(null);
+
+        React.useEffect(() => {
+          fetch(`https://api.openweathermap.org/data/2.5/weather?q=London&appid=56d21d7a6ad28bc32684f8fcc79fa6ac`)
+            .then((response) => response.json())
+            .then((data) => {
+              setWeatherData(data);
+            });
+        }, []);
+
+        if (!weatherData) {
+          return <p>Loading...</p>;
+        }
+
+        const temperature = Math.round((weatherData.main.temp - 273.15) * 10) / 10;
+        const weather = weatherData.weather[0].main;
+        const icon = weatherData.weather[0].icon;
+
+        return (
+          <div>
+            <p>Temperature: {temperature}°C</p>
+            <p>Weather: {weather}</p>
+            <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt={weather}/>
+          </div>
+        );
+      }
+
+      ReactDOM.render(<Weather />, document.getElementById("root"));
+    </script>
+  </body>
+</html>

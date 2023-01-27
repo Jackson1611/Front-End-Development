@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>React Trivia App</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    
+    <script type="text/babel">
+      function TriviaApp() {
+        const [question, setQuestion] = React.useState(null);
+        const [answer, setAnswer] = React.useState(null);
+        const [showAnswer, setShowAnswer] = React.useState(false);
+
+        const handleButtonClick = () => {
+          fetch('https://opentdb.com/api.php?amount=1')
+            .then((response) => response.json())
+            .then((data) => {
+              setQuestion(data.results[0].question);
+              setAnswer(data.results[0].correct_answer);
+            });
+        }
+
+        if (showAnswer){
+        return (
+            <div>
+              <p>{question}</p>
+              <button onClick={handleButtonClick}>New question</button>              
+              <button onClick={() => {setShowAnswer(false);}}>Hide Answer</button>
+              {<p>Answer: {answer}</p>}
+            </div>
+        )}
+        else {
+            return (
+            <div>
+              <p>{question}</p>
+              <button onClick={handleButtonClick}>New question</button>              
+              <button onClick={() => {setShowAnswer(true);}}>Show Answer</button>
+              
+            </div>
+        )}
+        ;
+      }
+
+      ReactDOM.render(<TriviaApp />, document.getElementById("root"));
+    </script>
+  </body>
+</html>

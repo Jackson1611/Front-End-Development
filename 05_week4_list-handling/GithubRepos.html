@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Github Repositories</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    
+    <script type="text/babel">
+     function GithubRepositories() {
+        const [repositories, setRepositories] = React.useState(null);
+
+        React.useEffect(() => {
+            fetch(`https://api.github.com/search/repositories?q=react`)
+            .then((response) => response.json())
+            .then((data) => {
+                setRepositories(data.items);
+            });
+        }, []);
+
+        if (!repositories) {
+            return <p>Loading...</p>;
+        }
+
+        return (
+            <div>
+            <h1>Repositories</h1>
+            <table>
+                <thead>
+                    <tr>               
+                    <th>Name</th>
+                    <th>URL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {repositories.map(repo => (
+                    <tr key={repo.id}> 
+                        <td>{repo.full_name}</td>
+                        <td><a href={repo.html_url}>{repo.html_url}</a></td>
+                    </tr>
+                    ))}
+                </tbody>
+            </table>
+            </div>
+        );
+        }
+
+
+
+      ReactDOM.render(<GithubRepositories />, document.getElementById("root"));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>React getting started</title>
+  </head>
+  <body>
+    <!-- Root container for react components -->
+    <div id="root"></div>
+
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+
+    <script type="text/babel">
+      function AgeCheck() {
+        const [name, setName] = React.useState('');
+        const [age, setAge] = React.useState('');
+        const [statement, setStatement] = React.useState('');
+
+        const handleSubmit = () => {
+            if(age >= 18) {
+                setStatement(`Hello ${name}`);
+            } else {
+                setStatement("You are too young");
+            }
+        };
+
+        return (
+          <div>
+            <p>{statement}</p>
+            <input 
+            name="name"  
+            value={name}   
+            onChange={e => setName(e.target.value)}/> 
+            
+            <input 
+            name="age"
+            value={age}
+            onChange={e => setAge(e.target.value)}/>
+
+            <button onClick={handleSubmit}>Submit</button>
+          </div>
+        );
+      };
+
+      ReactDOM.render(<AgeCheck />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
