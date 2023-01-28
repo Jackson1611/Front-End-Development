@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './index.css';
+import TodoTable from './component/todoList';
 
 interface Todo {
   description: string;
@@ -46,29 +47,11 @@ function App() {
           Add Todo
         </button>
 
-        
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            {todos.map((todo, index) => (
-              <tr key={index}>
-                <td>{todo.date}</td>
-                <td>{todo.description}</td>
-                <td>
-              <button onClick={() => handleDelete(index)}>Delete</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-          </table>
-          
+        <TodoTable todos={todos} handleDelete={handleDelete} />
     </div>
   );
 }
 
 export default App;
+
+
