@@ -1,9 +1,8 @@
 import React, { useState, useRef } from 'react';
-import './App.css';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
-
+import './App.css';
 
 function App() {
   const [todo, setTodo] = useState({description: '', date: '', priority:''});
@@ -31,8 +30,14 @@ function App() {
   }
 
   const addTodo = (event) => {
+    if (
+			todo.description !== '' &&
+			todo.date !== '' &&
+			todo.priority !== ''
+		) {
     setTodos([...todos, todo]);
     setTodo({description: '', date: '', priority:''}); 
+  }
   }
 
   const handleDelete = (index) => {
