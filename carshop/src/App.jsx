@@ -1,14 +1,23 @@
 import './App.css'
 import Carlist from './components/Carlist'
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 
 function App() {
 
 
   return (
     <div className="App">
-      <h1>Car list</h1>
-      <Carlist/>
       
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6">
+            Car List
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Carlist/>
     </div>
   )
 }

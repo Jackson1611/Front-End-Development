@@ -6,6 +6,7 @@ import 'ag-grid-community/styles/ag-theme-material.css';
 
 
 
+
 export default function Carlist() {
 	const [cars, setCars] = useState([]);
 
@@ -17,6 +18,17 @@ export default function Carlist() {
 			.then(data => setCars(data._embedded.cars));
 	};
 
+
+    const deleteCar = (link) => {		
+			fetch(link, { method: 'DELETE' })
+				.then((response) => fetchData())
+				.catch((err) => console.error(err));
+			alert('Car deleted!');
+		
+	};
+
+
+
     const columns = [  
         { headerName: "Brand",field: "brand" },  
         { headerName: "Model",field: "model" },  
@@ -24,6 +36,9 @@ export default function Carlist() {
         { headerName: "Fuel",field: "fuel" },  
         { headerName: "Year",field: "year" },  
         { headerName: "Price",field: "price" },
+        { headerName: "action" ,field: "_links.self.href",
+        cellRenderer: ({ value }) => (
+            <button onClick={() => deleteCar(value)}>Delete</button>)}
 		
   ];
 
