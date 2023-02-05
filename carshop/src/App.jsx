@@ -8,7 +8,7 @@ function App() {
 
 
   return (
-    <div className="App" style={{height: 'auto', width: '1400px'}}>
+    <div className="App" style={{height: 'auto', width: '1450px'}}>
       
       <AppBar position="static" >
         <Toolbar>

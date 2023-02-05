@@ -4,7 +4,7 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
 import Button from '@mui/material/Button';
 import Addcar from './Addcar';
-
+import Editcar from './Editcar';
 
 
 
@@ -31,6 +31,16 @@ export default function Carlist() {
 		}
 	};
 
+    const updateCar = (car, link) => {
+		fetch(link, {
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(car),
+		})
+			.then((response) => fetchData())
+			.catch((err) => console.error(err));
+	};
+
     const saveCar = (car) => {
 		fetch('http://carrestapi.herokuapp.com/cars', {
 			method: 'POST',
@@ -50,12 +60,18 @@ export default function Carlist() {
         { headerName: "Price",field: "price", sortable: true,  suppressMenu: true, },
         { headerName: "action" ,field: "_links.self.href",
         cellRenderer: ({ value }) => (
-            <Button size="large" onClick={() => deleteCar(value)}>Delete</Button>)}
-		
+            <Button size="large" onClick={() => deleteCar(value)}>Delete</Button>
+            ), },
+        { headerName: "action", field: "_links.self.href",
+            cellRenderer: row  => (
+                <Editcar updateCar={updateCar} car={row.original} />
+            ),
+        }
+            
   ];
 
   return (
-    <div className="ag-theme-material" style={{height: '1200px', width: '1400px'}}>
+    <div className="ag-theme-material" style={{height: '1200px', width: '1450px'}}>
         <Addcar saveCar={saveCar}/>
         <AgGridReact 
         columnDefs={columns} 

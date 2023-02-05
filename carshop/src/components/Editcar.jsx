@@ -8,12 +8,20 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 
 
-export default function Addcar(props){
+export default function Editcar(props){
 
     const [open, setOpen] = React.useState(false);
     const [car, setCar] = useState({brand: '', model: '', color: '', fuel: '', year: '', price: ''});
 
     const handleClickOpen = () => {
+		setCar({
+			brand: props.brand ,
+			model: props.model,
+			color: props.color,
+			fuel: props.fuel,
+			year: props.year, 
+			price:props.price
+		})
         setOpen(true);
     };
 
@@ -25,19 +33,18 @@ export default function Addcar(props){
         setCar({ ...car, [e.target.name]: e.target.value });
     };
 
-    const addCar = () => {
-        props.saveCar(car);
-        setCar({brand: '', model: '', color: '', fuel: '', year: '', price: ''});
-        handleClose();
-    };
+    const updateCar = () => {
+		props.updateCar(car, props.car._links.car.href);
+		handleClose();
+	};
 
 return (
     <div>
-    <Button style={{margin:10, color:"white"}}variant="outlined" onClick={handleClickOpen}>
-        Add new car
+    <Button  onClick={handleClickOpen}>
+        Edit
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>New car</DialogTitle>
+        <DialogTitle>Edit car</DialogTitle>
             <DialogContent>
                     <TextField
 						autoFocus
@@ -47,7 +54,7 @@ return (
 						onChange={(event) => handleInputChange(event)}
 						label='Brand'
 						fullWidth
-						
+						variant='standard'
 					/>
 					<TextField
 						margin='dense'
@@ -56,7 +63,7 @@ return (
 						onChange={(event) => handleInputChange(event)}
 						label='Model'
 						fullWidth
-						
+						variant='standard'
 					/>
 					<TextField
 						margin='dense'
@@ -65,7 +72,7 @@ return (
 						onChange={(event) => handleInputChange(event)}
 						label='Color'
 						fullWidth
-						
+						variant='standard'
 					/>
 					<TextField
 						margin='dense'
@@ -74,7 +81,7 @@ return (
 						onChange={(event) => handleInputChange(event)}
 						label='Fuel'
 						fullWidth
-						
+						variant='standard'
 					/>
 					<TextField
 						margin='dense'
@@ -83,7 +90,7 @@ return (
 						onChange={(event) => handleInputChange(event)}
 						label='Year'
 						fullWidth
-						
+						variant='standard'
 					/>
 					<TextField
 						margin='dense'
@@ -92,12 +99,12 @@ return (
 						onChange={(event) => handleInputChange(event)}
 						label='Price'
 						fullWidth
-						
+						variant='standard'
 					/>
             </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={addCar}>Save</Button>
+          <Button onClick={updateCar}>Save</Button>
         </DialogActions>
       </Dialog>
     </div>
