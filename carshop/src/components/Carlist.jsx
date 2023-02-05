@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
-
+import Button from '@mui/material/Button';
+import Addcar from './Addcar';
 
 
 
@@ -12,39 +13,55 @@ export default function Carlist() {
 
 	useEffect(() => fetchData(), []);
 
-	const fetchData = () => {
+	const fetchData = () => { 
 		fetch('http://carrestapi.herokuapp.com/cars')
 			.then(response => response.json())
 			.then(data => setCars(data._embedded.cars));
 	};
 
 
-    const deleteCar = (link) => {		
+    const deleteCar = (link) => {	
+        if (window.confirm('Are you sure?')) {	
 			fetch(link, { method: 'DELETE' })
 				.then((response) => fetchData())
 				.catch((err) => console.error(err));
 			alert('Car deleted!');
-		
+		} else {
+			alert('Nothing deleted.');
+		}
 	};
 
-
+    const saveCar = (car) => {
+		fetch('http://carrestapi.herokuapp.com/cars', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(car),
+		})
+			.then((response) => fetchData())
+			.catch((err) => console.error(err));
+	};
 
     const columns = [  
-        { headerName: "Brand",field: "brand" },  
-        { headerName: "Model",field: "model" },  
-        { headerName: "Color",field: "color" },
-        { headerName: "Fuel",field: "fuel" },  
-        { headerName: "Year",field: "year" },  
-        { headerName: "Price",field: "price" },
+        { headerName: "Brand",field: "brand", sortable: true,  suppressMenu: true, },  
+        { headerName: "Model",field: "model", sortable: true,  suppressMenu: true, },  
+        { headerName: "Color",field: "color", sortable: true,  suppressMenu: true, },
+        { headerName: "Fuel",field: "fuel", sortable: true,  suppressMenu: true, },  
+        { headerName: "Year",field: "year", sortable: true,  suppressMenu: true, },  
+        { headerName: "Price",field: "price", sortable: true,  suppressMenu: true, },
         { headerName: "action" ,field: "_links.self.href",
         cellRenderer: ({ value }) => (
-            <button onClick={() => deleteCar(value)}>Delete</button>)}
+            <Button size="large" onClick={() => deleteCar(value)}>Delete</Button>)}
 		
   ];
 
   return (
-    <div className="ag-theme-material" style={{height: '1200px', width: '1250px'}}>
-        <AgGridReact columnDefs={columns} rowData={cars}></AgGridReact>
+    <div className="ag-theme-material" style={{height: '1200px', width: '1400px'}}>
+        <Addcar saveCar={saveCar}/>
+        <AgGridReact 
+        columnDefs={columns} 
+        rowData={cars}  
+        enableSorting={false}
+        enableFilter={true}></AgGridReact>
     </div>
   );
 }

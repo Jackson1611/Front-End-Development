@@ -8,9 +8,9 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className="App" style={{height: 'auto', width: '1400px'}}>
       
-      <AppBar position="static">
+      <AppBar position="static" >
         <Toolbar>
           <Typography variant="h6">
             Car List
