@@ -7,6 +7,9 @@ import Addcustomer from './Addcustomer';
 import Addtraining from './AddTraining';
 
 
+
+
+
 export function CustomerList() {
   const [customers, setCustomers] = useState([]);
   const [gridApi, setGridApi] = useState(null);
@@ -91,14 +94,14 @@ export function CustomerList() {
   };
 
   const columns = [
-    { headerName: "Last Name", field: "lastname", sortable: true, filter: true, editable: true, floatingFilter: true,onCellValueChanged: handleCellValueChanged },
-    { headerName: "First Name", field: "firstname", sortable: true, filter: true, editable: true, floatingFilter: true, onCellValueChanged: handleCellValueChanged },
-    { headerName: "Email", field: "email", sortable: true, filter: true, editable: true, floatingFilter: true, onCellValueChanged: handleCellValueChanged },
-    { headerName: "Phone", field: "phone", sortable: true, filter: true, editable: true, floatingFilter: true, onCellValueChanged: handleCellValueChanged },
-    { headerName: "Address", field: "streetaddress", sortable: true, filter: true, editable: true, floatingFilter: true, onCellValueChanged: handleCellValueChanged },
-    { headerName: "Postcode", field: "postcode", sortable: true, filter: true, editable: true,floatingFilter: true, onCellValueChanged: handleCellValueChanged },
-    { headerName: "City", field: "city", sortable: true, filter: true, editable: true, floatingFilter: true,onCellValueChanged: handleCellValueChanged },
-    { headerName: "Action",
+    { headerName: "Last Name", field: "lastname", sortable: true, filter: true, editable: true, floatingFilter: true,onCellValueChanged: handleCellValueChanged, cellStyle: { fontSize: '15px' } },
+    { headerName: "First Name", field: "firstname", sortable: true, filter: true, editable: true, floatingFilter: true, onCellValueChanged: handleCellValueChanged , cellStyle: { fontSize: '15px' }},
+    { headerName: "Email", field: "email", sortable: true, filter: true, editable: true, floatingFilter: true, onCellValueChanged: handleCellValueChanged , cellStyle: { fontSize: '15px' }},
+    { headerName: "Phone", field: "phone", sortable: true, filter: true, editable: true, floatingFilter: true, onCellValueChanged: handleCellValueChanged , cellStyle: { fontSize: '15px' }},
+    { headerName: "Address", field: "streetaddress", sortable: true, filter: true, editable: true, floatingFilter: true, onCellValueChanged: handleCellValueChanged , cellStyle: { fontSize: '15px' }},
+    { headerName: "Postcode", field: "postcode", sortable: true, filter: true, editable: true,floatingFilter: true, onCellValueChanged: handleCellValueChanged , cellStyle: { fontSize: '15px' }},
+    { headerName: "City", field: "city", sortable: true, filter: true, editable: true, floatingFilter: true,onCellValueChanged: handleCellValueChanged, cellStyle: { fontSize: '15px' } },
+    { headerName: "Action",width: 120,
       cellRendererFramework: (props) => (
         
         <Button onClick={() => deleteCustomer(props.data.links[0].href)}>
@@ -119,11 +122,9 @@ export function CustomerList() {
   
 
   return (
-    <div className="ag-theme-material" style={{ height: '800px', width: '1800px', margin:'auto' }}>
-       <button onClick={onBtExport} >
-      Export to Excel
-    </button>
-      <Addcustomer saveCustomer={saveCustomer}/>
+    <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+    <div className="ag-theme-material" style={{ height: '900px', width: '1750px', margin:'', justifyContent: 'center', }}>
+       
       <AgGridReact 
       columnDefs={columns} 
       rowData={customers} 
@@ -132,7 +133,13 @@ export function CustomerList() {
       onGridReady={onGridReady}
       
        />
-     
+    <div style={{ margin: '10px', display: 'inline-flex'}}>
+     <Addcustomer saveCustomer={saveCustomer}/>
+     <Button onClick={onBtExport} style={{margin:10, fontSize:"20px"}} variant="outlined" size="large" >
+      Export 
+    </Button>
+    </div>
+    </div>
     </div>
   );
 }

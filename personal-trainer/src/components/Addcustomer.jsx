@@ -35,7 +35,7 @@ export default function Addcustomer(props){
 
 return (
     <div>
-    <Button style={{margin:10, color:"white"}}variant="outlined" onClick={handleClickOpen}>
+    <Button style={{margin:10,  fontSize:"20px"}}variant="outlined" size="large" onClick={handleClickOpen}>
         Add customer
       </Button>
       <Dialog open={open} onClose={handleClose}>

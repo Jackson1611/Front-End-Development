@@ -61,10 +61,10 @@ export function Traininglist() {
    
     const columns = [
        
-        { headerName: "Activity", field: "activity", sortable: true, filter: true  },
-        { headerName: "Date", field: "date", sortable: true, filter: true  },
-        { headerName: "Duration (minutes)", field: "duration", sortable: true, filter: true  },
-        { headerName: "Customer Name", field: "customerName", sortable: true, filter: true  },
+        { headerName: "Activity", field: "activity", sortable: true, filter: true, cellStyle: { fontSize: '15px' }  },
+        { headerName: "Date", field: "date", sortable: true, filter: true , cellStyle: { fontSize: '15px' } },
+        { headerName: "Duration (minutes)", field: "duration", sortable: true, filter: true, cellStyle: { fontSize: '15px' }  },
+        { headerName: "Customer Name", field: "customerName", sortable: true, filter: true , cellStyle: { fontSize: '15px' } },
         { headerName: "action" ,field: "link",
         cellRenderer: ({ value }) => (
             <Button size="large" onClick={() => deleteTraining(value)}>Delete</Button>
@@ -76,14 +76,20 @@ export function Traininglist() {
     
   
     return (
-      <div className="ag-theme-material" style={{ height: '800px', width: '1400px', margin:'auto' }}>
-         <button onClick={onBtExport} >
-      Export to Excel
-    </button>
+      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+      <div className="ag-theme-material" style={{ height: '900px', width: '1000px', margin:'' }}>
+         
         <AgGridReact columnDefs={columns} rowData={trainings} enableSorting={true}
         enableFilter={true} 
         onGridReady={onGridReady} />
+
+      <div style={{ margin: '10px', display: 'inline-flex'}}>
+        <Button onClick={onBtExport} style={{margin:10, fontSize:"20px"}}variant="outlined" size="large">
+          Export 
+        </Button>
       </div>
+    </div>
+    </div>
     );
   }
   
