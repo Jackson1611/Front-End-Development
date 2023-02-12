@@ -94,13 +94,76 @@ export function CustomerList() {
   };
 
   const columns = [
-    { headerName: "Last Name", field: "lastname", sortable: true, filter: true, editable: true, floatingFilter: true,onCellValueChanged: handleCellValueChanged, cellStyle: { fontSize: '15px' } },
-    { headerName: "First Name", field: "firstname", sortable: true, filter: true, editable: true, floatingFilter: true, onCellValueChanged: handleCellValueChanged , cellStyle: { fontSize: '15px' }},
-    { headerName: "Email", field: "email", sortable: true, filter: true, editable: true, floatingFilter: true, onCellValueChanged: handleCellValueChanged , cellStyle: { fontSize: '15px' }},
-    { headerName: "Phone", field: "phone", sortable: true, filter: true, editable: true, floatingFilter: true, onCellValueChanged: handleCellValueChanged , cellStyle: { fontSize: '15px' }},
-    { headerName: "Address", field: "streetaddress", sortable: true, filter: true, editable: true, floatingFilter: true, onCellValueChanged: handleCellValueChanged , cellStyle: { fontSize: '15px' }},
-    { headerName: "Postcode", field: "postcode", sortable: true, filter: true, editable: true,floatingFilter: true, onCellValueChanged: handleCellValueChanged , cellStyle: { fontSize: '15px' }},
-    { headerName: "City", field: "city", sortable: true, filter: true, editable: true, floatingFilter: true,onCellValueChanged: handleCellValueChanged, cellStyle: { fontSize: '15px' } },
+    { 
+      headerName: "Last Name", 
+      field: "lastname", 
+      sortable: true, 
+      filter: true, 
+      editable: true, 
+      floatingFilter: true,
+      onCellValueChanged: handleCellValueChanged, 
+      cellStyle: { fontSize: '15px' } 
+    },
+    { 
+      headerName: "First Name", 
+      field: "firstname", 
+      sortable: true, 
+      filter: true, 
+      editable: true, 
+      floatingFilter: true, 
+      onCellValueChanged: handleCellValueChanged , 
+      cellStyle: { fontSize: '15px' }
+    },
+    { 
+      headerName: "Email", 
+      field: "email", 
+      sortable: true, 
+      filter: true, 
+      editable: true, 
+      floatingFilter: true, 
+      onCellValueChanged: handleCellValueChanged , 
+      cellStyle: { fontSize: '15px' }
+    },
+    { 
+      headerName: "Phone", 
+      field: "phone", 
+      sortable: true, 
+      filter: true, 
+      editable: true, 
+      floatingFilter: true, 
+      onCellValueChanged: handleCellValueChanged , 
+      cellStyle: { fontSize: '15px' }
+    },
+    { 
+      headerName: "Address", 
+      field: "streetaddress", 
+      sortable: true, 
+      filter: true,
+       editable: true, 
+       floatingFilter: true, 
+       onCellValueChanged: handleCellValueChanged , 
+       cellStyle: { fontSize: '15px' }
+      },
+    { 
+      headerName: "Postcode", 
+      field: "postcode", 
+      sortable: true, 
+      filter: true, 
+      editable: true,
+      floatingFilter: true, 
+      onCellValueChanged: handleCellValueChanged , 
+      cellStyle: { fontSize: '15px' }
+    },
+    { 
+      headerName: "City", 
+      field: "city", 
+      sortable: true, 
+      filter: true,
+      editable: true, 
+      floatingFilter: true,
+      onCellValueChanged: handleCellValueChanged, 
+      cellStyle: { fontSize: '15px' } 
+    },
     { headerName: "Action",width: 120,
       cellRendererFramework: (props) => (
         
