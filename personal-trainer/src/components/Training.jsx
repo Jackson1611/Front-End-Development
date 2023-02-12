@@ -11,6 +11,7 @@ import dayjs from 'dayjs';
 
 export function Traininglist() {
     const [trainings, setTrainings] = useState([]);
+    const [gridApi, setGridApi] = useState(null);
 
     useEffect(() => fetchData(), []);
 
@@ -49,6 +50,14 @@ export function Traininglist() {
           alert('Nothing deleted.');
         }
       };
+
+      const onGridReady = (params) => {
+        setGridApi(params.api);
+      };
+      
+      const onBtExport = () => {
+        gridApi.exportDataAsCsv();
+      };
    
     const columns = [
        
@@ -68,8 +77,12 @@ export function Traininglist() {
   
     return (
       <div className="ag-theme-material" style={{ height: '800px', width: '1400px', margin:'auto' }}>
+         <button onClick={onBtExport} >
+      Export to Excel
+    </button>
         <AgGridReact columnDefs={columns} rowData={trainings} enableSorting={true}
-        enableFilter={true} />
+        enableFilter={true} 
+        onGridReady={onGridReady} />
       </div>
     );
   }

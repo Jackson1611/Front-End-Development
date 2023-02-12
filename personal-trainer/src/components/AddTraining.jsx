@@ -16,16 +16,20 @@ export default function Addtraining(props){
 
     const [open, setOpen] = useState(false);
     const [training, setTraining] = useState({
-        date: '', activity: '', duration: ''
+      date: dayjs().toISOString(),
+      activity: '',
+      duration: '',
+      customer:''
     });
+    
 
     const handleClickOpen = () => {
-		setTraining({
-			date: props.date,
+        setTraining({
+            date: props.date,
             activity: props.activity,
             duration: props.duration,
             customer: props.customer,
-		})
+        })
         setOpen(true);
     };
 
@@ -38,59 +42,53 @@ export default function Addtraining(props){
     };
 
     const updateTraining = () => {
-		const date = dayjs(training.date, "DD.MM.YY HH:mm").toDate();
-		const isoDate = date.toISOString();
-		const updatedTraining = { ...training, date: isoDate };
-		props.updateTraining(updatedTraining, props);
-		handleClose();
-	  };
+        const date = dayjs(training.date, "DD.MM.YY HH:mm").toDate();
+        const isoDate = date.toISOString();
+        const updatedTraining = { ...training, date: isoDate };
+        props.saveTraining(updatedTraining);
+        handleClose();
+    };
 
-return (
-    <div>
-    <Button onClick={handleClickOpen}>
-       Add training
-      </Button>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add training</DialogTitle>
-            <DialogContent>
-				
+   
 
-					<LocalizationProvider dateAdapter={AdapterDayjs}>
-					<DateTimePicker
-					label="date"
-					value={training.date}
-					onChange={(event) => handleInputChange(event)}
-					renderInput={(params) => <TextField {...params} />}
-					format="DD.MM.YY HH:mm"
-					/>
-					</LocalizationProvider>
-
-					<TextField
-						margin='dense'
-						name='activity'
-						value={training.activity}
-						onChange={(event) => handleInputChange(event)}
-						label='activity'
-						fullWidth
-						
-					/>
-					<TextField
-						margin='dense'
-						name='duration'
-						value={training.duration}
-						onChange={(event) => handleInputChange(event)}
-						label='duration'
-						fullWidth
-						
-					/>
-				
-					
-            </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={updateTraining}>Save</Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-);
+    return (
+        <div>
+            <Button onClick={handleClickOpen}>
+                Add training
+            </Button>
+            <Dialog open={open} onClose={handleClose}>
+                <DialogTitle>Add training</DialogTitle>
+                <DialogContent>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DateTimePicker
+                            value={training.date}
+                            onChange={(event) => handleInputChange(event)}
+                            renderInput={(params) => <TextField {...params} />}
+                            format="DD.MM.YY HH:mm"
+                        />
+                    </LocalizationProvider>
+                    <TextField
+                        margin='dense'
+                        name='activity'
+                        value={training.activity}
+                        onChange={(event) => handleInputChange(event)}
+                        label='activity'
+                        fullWidth
+                    />
+                    <TextField
+                        margin='dense'
+                        name='duration'
+                        value={training.duration}
+                        onChange={(event) => handleInputChange(event)}
+                        label='duration'
+                        fullWidth
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={updateTraining}>Save</Button>
+                </DialogActions>
+            </Dialog>
+        </div>
+    );
 }

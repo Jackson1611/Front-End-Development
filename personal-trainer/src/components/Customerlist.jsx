@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
@@ -9,7 +9,10 @@ import Addtraining from './AddTraining';
 
 export function CustomerList() {
   const [customers, setCustomers] = useState([]);
+  const [gridApi, setGridApi] = useState(null);
 
+  
+/* fetch function */
   useEffect(() => fetchData(), []);
 
   const fetchData = () => {
@@ -21,18 +24,13 @@ export function CustomerList() {
       .catch(error => console.error(error));
   };
 
-
+/* in line edit */
   function handleCellValueChanged(params) {
     const data = { ...params.data };
     const updatedData = { ...data, [params.colDef.field]: params.newValue };
   
     updateCustomer(updatedData)
-      .then(() => {
-        console.log("Customer data updated successfully!");
-      })
-      .catch((error) => {
-        console.error("Error updating customer data:", error);
-      });
+      
   }
   
   async function updateCustomer(customerData) {
@@ -50,7 +48,7 @@ export function CustomerList() {
   }
 
 
-
+  /* delete function */
   const deleteCustomer = (link) => {
     if (window.confirm('Are you sure?')) {
       fetch(link, { method: 'DELETE' })
@@ -62,6 +60,7 @@ export function CustomerList() {
     }
   };
 
+  /* save function */
   const saveCustomer = (customer) => {
 		fetch('http://traineeapp.azurewebsites.net/api/customers', {
 			method: 'POST',
@@ -82,16 +81,23 @@ export function CustomerList() {
     .then((response) => fetchData())
     .catch((err) => console.error(err));
   };
+/* export CSV function */
+  const onGridReady = (params) => {
+    setGridApi(params.api);
+  };
   
+  const onBtExport = () => {
+    gridApi.exportDataAsCsv();
+  };
 
   const columns = [
-    { headerName: "Last Name", field: "lastname", sortable: true, filter: true, editable: true, onCellValueChanged: handleCellValueChanged },
-    { headerName: "First Name", field: "firstname", sortable: true, filter: true, editable: true, onCellValueChanged: handleCellValueChanged },
-    { headerName: "Email", field: "email", sortable: true, filter: true, editable: true, onCellValueChanged: handleCellValueChanged },
-    { headerName: "Phone", field: "phone", sortable: true, filter: true, editable: true, onCellValueChanged: handleCellValueChanged },
-    { headerName: "Address", field: "streetaddress", sortable: true, filter: true, editable: true, onCellValueChanged: handleCellValueChanged },
-    { headerName: "Postcode", field: "postcode", sortable: true, filter: true, editable: true, onCellValueChanged: handleCellValueChanged },
-    { headerName: "City", field: "city", sortable: true, filter: true, editable: true, onCellValueChanged: handleCellValueChanged },
+    { headerName: "Last Name", field: "lastname", sortable: true, filter: true, editable: true, floatingFilter: true,onCellValueChanged: handleCellValueChanged },
+    { headerName: "First Name", field: "firstname", sortable: true, filter: true, editable: true, floatingFilter: true, onCellValueChanged: handleCellValueChanged },
+    { headerName: "Email", field: "email", sortable: true, filter: true, editable: true, floatingFilter: true, onCellValueChanged: handleCellValueChanged },
+    { headerName: "Phone", field: "phone", sortable: true, filter: true, editable: true, floatingFilter: true, onCellValueChanged: handleCellValueChanged },
+    { headerName: "Address", field: "streetaddress", sortable: true, filter: true, editable: true, floatingFilter: true, onCellValueChanged: handleCellValueChanged },
+    { headerName: "Postcode", field: "postcode", sortable: true, filter: true, editable: true,floatingFilter: true, onCellValueChanged: handleCellValueChanged },
+    { headerName: "City", field: "city", sortable: true, filter: true, editable: true, floatingFilter: true,onCellValueChanged: handleCellValueChanged },
     { headerName: "Action",
       cellRendererFramework: (props) => (
         
@@ -101,22 +107,32 @@ export function CustomerList() {
         
         
       ),
-    }, { headerName: "Add",
-    cellRendererFramework: (props) => (
-      <>
-      <Addtraining saveTraining={saveTraining} />
-      </>
-    ),
-  },
+    }, 
+    {
+      headerName: "Add",
+      cellRendererFramework: (props) => (
+        <Addtraining saveTraining={saveTraining} customerId={props.data.id} />
+      ),
+    }, 
   ];
 
   
 
   return (
     <div className="ag-theme-material" style={{ height: '800px', width: '1800px', margin:'auto' }}>
+       <button onClick={onBtExport} >
+      Export to Excel
+    </button>
       <Addcustomer saveCustomer={saveCustomer}/>
-      <AgGridReact columnDefs={columns} rowData={customers} enableSorting={true}
-      enableFilter={true} />
+      <AgGridReact 
+      columnDefs={columns} 
+      rowData={customers} 
+      enableSorting={true}
+      enableFilter={true}
+      onGridReady={onGridReady}
+      
+       />
+     
     </div>
   );
 }
