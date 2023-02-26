@@ -7,38 +7,28 @@ const localizer = momentLocalizer(moment);
 export function CalendarComponent() {
   const [trainings, setTrainings] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(
-          "http://traineeapp.azurewebsites.net/api/trainings"
-        );
-        const data = await res.json();
+  useEffect(() => fetchData(), []);
 
-        const formattedTrainings = await Promise.all(
-          data.content.map(async (training) => {
-            const customerRes = await fetch(
-              training.links.find((link) => link.rel === "customer").href
-            );
-            const customerData = await customerRes.json();
-
-            return {
-              title: `${training.activity} / ${customerData.firstname} ${customerData.lastname}`,
-              start: moment(training.date).toDate(),
-              end: moment(training.date).add(training.duration, "m").toDate(),
-              customerName: `${customerData.firstname} ${customerData.lastname}`,
-            };
-          })
-        );
-
-        setTrainings(formattedTrainings);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const fetchData = () => {
+    fetch("http://traineeapp.azurewebsites.net/api/trainings")
+      .then((res) => res.json())
+      .then((data) => {
+        Promise.all(
+          data.content.map((training) =>
+            fetch(training.links.find((link) => link.rel === "customer").href)
+              .then((res) => res.json())
+              .then((customerData) => ({
+                title: `${training.activity} / ${customerData.firstname} ${customerData.lastname}`,
+                start: moment(training.date).toDate(),
+                end: moment(training.date).add(training.duration, "m").toDate(),
+                customerName: `${customerData.firstname} ${customerData.lastname}`,
+              }))
+          )
+        )
+          .then((formattedTrainings) => setTrainings(formattedTrainings))
+          .catch((error) => console.error(error));
+      });
+  };
 
   return (
     <div>
