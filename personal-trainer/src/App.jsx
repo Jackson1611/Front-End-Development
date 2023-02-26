@@ -32,7 +32,7 @@ function App() {
                 to="/calender"
                 style={{ color: "inherit", textDecoration: "none" }}
               >
-                Calender
+                Calendar
               </Link>
             </Typography>
           </Toolbar>

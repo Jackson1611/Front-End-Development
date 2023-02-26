@@ -23,7 +23,7 @@ export function CalendarComponent() {
             const customerData = await customerRes.json();
 
             return {
-              title: training.activity,
+              title: `${training.activity} / ${customerData.firstname} ${customerData.lastname}`,
               start: moment(training.date).toDate(),
               end: moment(training.date).add(training.duration, "m").toDate(),
               customerName: `${customerData.firstname} ${customerData.lastname}`,
@@ -50,6 +50,8 @@ export function CalendarComponent() {
         titleAccessor="title"
         tooltipAccessor="customerName"
         style={{ color: "black", backgroundColor: "#f2f2f2" }}
+        views={["month", "week", "day"]}
+        defaultView="week"
       />
     </div>
   );
