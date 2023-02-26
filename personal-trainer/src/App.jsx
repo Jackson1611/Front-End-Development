@@ -1,22 +1,28 @@
-import { useState } from 'react'
-import './App.css'
-import {CustomerList} from './components/Customerlist'
-import {Traininglist} from './components/Training'
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Container } from '@material-ui/core';
+import { useState } from "react";
+import "./App.css";
+import { CustomerList } from "./components/Customerlist";
+import { Traininglist } from "./components/Training";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { AppBar, Toolbar, Typography, Container } from "@material-ui/core";
 function App() {
   return (
-    <div className="App" style={{ width: '1400px',}}>
+    <div className="App" style={{ width: "1400px" }}>
       <BrowserRouter>
-        <AppBar  >
+        <AppBar>
           <Toolbar>
-            <Typography variant="h3" style={{ marginLeft: '1rem' }}>
-              <Link to="/customer" style={{ color: 'inherit', textDecoration: 'none' }}>
+            <Typography variant="h3" style={{ marginLeft: "1rem" }}>
+              <Link
+                to="/customer"
+                style={{ color: "inherit", textDecoration: "none" }}
+              >
                 Customer
               </Link>
             </Typography>
-            <Typography variant="h3" style={{ marginLeft: '3rem' }}>
-              <Link to="/training" style={{ color: 'inherit', textDecoration: 'none' }}>
+            <Typography variant="h3" style={{ marginLeft: "3rem" }}>
+              <Link
+                to="/training"
+                style={{ color: "inherit", textDecoration: "none" }}
+              >
                 Training
               </Link>
             </Typography>
@@ -32,7 +38,7 @@ function App() {
         </Container>
       </BrowserRouter>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
