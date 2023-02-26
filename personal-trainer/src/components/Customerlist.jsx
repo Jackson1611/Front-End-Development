@@ -75,6 +75,7 @@ export function CustomerList() {
       .then((response) => fetchData())
       .catch((err) => console.error(err));
   };
+
   /* export CSV function */
   const onGridReady = (params) => {
     setGridApi(params.api);

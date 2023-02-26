@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import { CustomerList } from "./components/Customerlist";
 import { Traininglist } from "./components/Training";
+import { CalendarComponent } from "./components/Calendar";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { AppBar, Toolbar, Typography, Container } from "@material-ui/core";
 function App() {
@@ -26,6 +27,14 @@ function App() {
                 Training
               </Link>
             </Typography>
+            <Typography variant="h3" style={{ marginLeft: "3rem" }}>
+              <Link
+                to="/calender"
+                style={{ color: "inherit", textDecoration: "none" }}
+              >
+                Calender
+              </Link>
+            </Typography>
           </Toolbar>
         </AppBar>
 
@@ -34,6 +43,7 @@ function App() {
             <Route path="/" element={<CustomerList />} />
             <Route path="/customer" element={<CustomerList />} />
             <Route path="/training" element={<Traininglist />} />
+            <Route path="/calender" element={<CalendarComponent />} />
           </Routes>
         </Container>
       </BrowserRouter>
