@@ -3,6 +3,7 @@ import "./App.css";
 import { CustomerList } from "./components/Customerlist";
 import { Traininglist } from "./components/Training";
 import { CalendarComponent } from "./components/Calendar";
+import { TrainingChart } from "./components/TrainingChart";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { AppBar, Toolbar, Typography, Container } from "@material-ui/core";
 function App() {
@@ -35,6 +36,14 @@ function App() {
                 Calendar
               </Link>
             </Typography>
+            <Typography variant="h3" style={{ marginLeft: "3rem" }}>
+              <Link
+                to="/chart"
+                style={{ color: "inherit", textDecoration: "none" }}
+              >
+                Chart
+              </Link>
+            </Typography>
           </Toolbar>
         </AppBar>
 
@@ -44,6 +53,7 @@ function App() {
             <Route path="/customer" element={<CustomerList />} />
             <Route path="/training" element={<Traininglist />} />
             <Route path="/calender" element={<CalendarComponent />} />
+            <Route path="/chart" element={<TrainingChart />} />
           </Routes>
         </Container>
       </BrowserRouter>

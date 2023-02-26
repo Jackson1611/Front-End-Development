@@ -40,7 +40,7 @@ export function CalendarComponent() {
         titleAccessor="title"
         tooltipAccessor="customerName"
         style={{ color: "black", backgroundColor: "#f2f2f2" }}
-        views={["month", "week", "day"]}
+        views={["week", "day"]}
         defaultView="week"
       />
     </div>
