@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./App.css";
 import { CustomerList } from "./components/Customerlist";
 import { Traininglist } from "./components/Training";

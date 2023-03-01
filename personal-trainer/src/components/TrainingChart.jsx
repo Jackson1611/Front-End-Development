@@ -76,31 +76,34 @@ export function TrainingChart() {
   );
 
   return (
-    <div
-      style={{
-        marginTop: "300px",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <BarChart
-        width={1500}
-        height={800}
-        data={chartData}
-        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+    <div style={{ color: "black" }}>
+      <h1>Training activity status </h1>
+      <div
+        style={{
+          marginTop: "200px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="activity" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Bar
-          dataKey="duration"
-          fill="rgb(153, 102, 255)"
-          stroke="rgb(0, 0, 0)"
-        />
-      </BarChart>
+        <BarChart
+          width={1500}
+          height={800}
+          data={chartData}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="activity" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar
+            dataKey="duration"
+            fill="rgb(51, 102, 204)"
+            stroke="rgb(0, 0, 0)"
+          />
+        </BarChart>
+      </div>
     </div>
   );
 }

@@ -94,7 +94,7 @@ export function CustomerList() {
       editable: true,
       floatingFilter: true,
       onCellValueChanged: handleCellValueChanged,
-      cellStyle: { fontSize: "15px" },
+      cellStyle: { fontSize: "17px" },
     },
     {
       headerName: "First Name",
@@ -104,7 +104,7 @@ export function CustomerList() {
       editable: true,
       floatingFilter: true,
       onCellValueChanged: handleCellValueChanged,
-      cellStyle: { fontSize: "15px" },
+      cellStyle: { fontSize: "17px" },
     },
     {
       headerName: "Email",
@@ -114,7 +114,7 @@ export function CustomerList() {
       editable: true,
       floatingFilter: true,
       onCellValueChanged: handleCellValueChanged,
-      cellStyle: { fontSize: "15px" },
+      cellStyle: { fontSize: "17px" },
     },
     {
       headerName: "Phone",
@@ -124,7 +124,7 @@ export function CustomerList() {
       editable: true,
       floatingFilter: true,
       onCellValueChanged: handleCellValueChanged,
-      cellStyle: { fontSize: "15px" },
+      cellStyle: { fontSize: "17px" },
     },
     {
       headerName: "Address",
@@ -134,7 +134,7 @@ export function CustomerList() {
       editable: true,
       floatingFilter: true,
       onCellValueChanged: handleCellValueChanged,
-      cellStyle: { fontSize: "15px" },
+      cellStyle: { fontSize: "17px" },
     },
     {
       headerName: "Postcode",
@@ -144,7 +144,7 @@ export function CustomerList() {
       editable: true,
       floatingFilter: true,
       onCellValueChanged: handleCellValueChanged,
-      cellStyle: { fontSize: "15px" },
+      cellStyle: { fontSize: "17px" },
     },
     {
       headerName: "City",
@@ -154,7 +154,7 @@ export function CustomerList() {
       editable: true,
       floatingFilter: true,
       onCellValueChanged: handleCellValueChanged,
-      cellStyle: { fontSize: "15px" },
+      cellStyle: { fontSize: "17px" },
     },
     {
       headerName: "Action",
@@ -165,12 +165,13 @@ export function CustomerList() {
         </Button>
       ),
     },
-    {
+    /*{
       headerName: "Add",
       cellRendererFramework: (props) => (
         <Addtraining saveTraining={saveTraining} customerId={props.data.id} />
       ),
     },
+    */
   ];
 
   return (
@@ -187,7 +188,7 @@ export function CustomerList() {
         className="ag-theme-material"
         style={{
           height: "900px",
-          width: "1750px",
+          width: "1550px",
           margin: "",
           justifyContent: "center",
         }}
