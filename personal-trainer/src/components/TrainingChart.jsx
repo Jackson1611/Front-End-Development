@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from "react";
 import _ from "lodash";
 import dayjs from "dayjs";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
 
 export function TrainingChart() {
   const [trainings, setTrainings] = useState([]);
@@ -55,24 +64,43 @@ export function TrainingChart() {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div style={{ color: "black" }}>Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div style={{ color: "black" }}>Error: {error.message}</div>;
   }
 
+  const chartData = Object.entries(groupTrainingsByActivity()).map(
+    ([activity, duration]) => ({ activity, duration })
+  );
+
   return (
-    <div>
-      {Object.entries(groupTrainingsByActivity()).map(
-        ([activity, duration]) => (
-          <div key={activity}>
-            <p>
-              {activity}: {duration} minutes
-            </p>
-          </div>
-        )
-      )}
+    <div
+      style={{
+        marginTop: "300px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <BarChart
+        width={1500}
+        height={800}
+        data={chartData}
+        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="activity" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Bar
+          dataKey="duration"
+          fill="rgb(153, 102, 255)"
+          stroke="rgb(0, 0, 0)"
+        />
+      </BarChart>
     </div>
   );
 }
